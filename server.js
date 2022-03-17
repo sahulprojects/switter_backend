@@ -3,10 +3,14 @@ const app = express();
 require("dotenv").config();
 const mongoose = require("mongoose");
 const body_parser = require("body-parser");
+const cors = require("cors");
+app.use(cors());
 
 const port = process.env.PORT;
 const SignupRouter = require("./src/signup/signup.route");
 const LoginRouter = require("./src/login/login.router");
+const PostRouter = require("./src/posts/posts.route");
+const { authenticateToken } = require("./src/login/login.service");
 
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({ extended: false }));
@@ -20,6 +24,7 @@ mongoose
 
 app.use("/", SignupRouter);
 app.use("/login", LoginRouter);
+app.use("/post", authenticateToken, PostRouter);
 
 app.listen(port, () => [
   console.log(`server starts at http://localhost:${port}`),
