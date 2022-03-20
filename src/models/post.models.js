@@ -13,6 +13,16 @@ const PostsSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  liked_users: [
+    {
+      type: String,
+    },
+  ],
+  disliked_users: [
+    {
+      type: String,
+    },
+  ],
   date_posted: {
     type: String,
   },

@@ -26,7 +26,8 @@ const createPost = async (req, res) => {
 
 const allPosts = async (req, res) => {
   try {
-    const posts = await Post.find();
+    // $natural returns data new to old
+    const posts = await Post.find().sort({ $natural: -1 });
     res.json(posts);
   } catch (err) {
     console.log(err);
@@ -36,7 +37,9 @@ const allPosts = async (req, res) => {
 
 const myPosts = async (req, res) => {
   try {
-    const posts = await Post.find({ author_user: req.user.username });
+    const posts = await Post.find({ author_user: req.user.username }).sort({
+      $natural: -1,
+    });
     res.json(posts);
   } catch (err) {
     console.log(err);
@@ -52,7 +55,7 @@ const updateMyPost = async (req, res) => {
       { _id: id },
       {
         content: content,
-        date_posted: new Date().toLocaleString()+"(updated)",
+        date_posted: new Date().toLocaleString() + "(updated)",
       },
       { new: true }
     );
@@ -74,4 +77,48 @@ const deleteMyPost = async (req, res) => {
   }
 };
 
-module.exports = { createPost, allPosts, myPosts, updateMyPost, deleteMyPost };
+const likePost = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const liking_post = await Post.findByIdAndUpdate(
+      { _id: id },
+      {
+        $addToSet: { liked_users: req.user.username },
+        $pull: { disliked_users: req.user.username },
+      },
+
+      { new: true }
+    );
+    res.send(liking_post);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const dislikePost = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const disliking_post = await Post.findByIdAndUpdate(
+      { _id: id },
+      {
+        $addToSet: { disliked_users: req.user.username },
+        $pull: { liked_users: req.user.username },
+      },
+
+      { new: true }
+    );
+    res.send(disliking_post);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports = {
+  createPost,
+  allPosts,
+  myPosts,
+  updateMyPost,
+  deleteMyPost,
+  likePost,
+  dislikePost,
+};
