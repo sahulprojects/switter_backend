@@ -23,6 +23,7 @@ const PostsSchema = mongoose.Schema({
       type: String,
     },
   ],
+  comments: [],
   date_posted: {
     type: String,
   },

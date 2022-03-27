@@ -113,6 +113,26 @@ const dislikePost = async (req, res) => {
   }
 };
 
+const commentPost = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const commenting = await Post.findByIdAndUpdate(
+      { _id: id },
+      {
+        $push: {
+          comments: {
+            username: req.user.username,
+            comment: req.body.comment,
+          },
+        },
+      }
+    );
+    res.send(commenting);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports = {
   createPost,
   allPosts,
@@ -121,4 +141,5 @@ module.exports = {
   deleteMyPost,
   likePost,
   dislikePost,
+  commentPost,
 };
