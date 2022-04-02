@@ -2,11 +2,9 @@ const Post = require("../models/post.models");
 
 const createPost = async (req, res) => {
   const author_user = req.user.username;
-  console.log(author_user);
   const title = req.body.title;
 
   const content = req.body.content;
-  console.log(title, content);
   const newPost = new Post({
     author_user,
     title,
@@ -16,10 +14,8 @@ const createPost = async (req, res) => {
 
   try {
     const savePost = await newPost.save();
-    console.log(savePost.date_posted);
     res.send(savePost);
   } catch (err) {
-    console.log(err);
     res.send("Error occur while saving the post", 404);
   }
 };
@@ -30,7 +26,6 @@ const allPosts = async (req, res) => {
     const posts = await Post.find().sort({ $natural: -1 });
     res.json(posts);
   } catch (err) {
-    console.log(err);
     res.send("Error occur while getting the posts", 404);
   }
 };
@@ -42,7 +37,6 @@ const myPosts = async (req, res) => {
     });
     res.json(posts);
   } catch (err) {
-    console.log(err);
     res.send("Error occur while getting your posts", 404);
   }
 };
@@ -61,7 +55,6 @@ const updateMyPost = async (req, res) => {
     );
     res.send(updatePost);
   } catch (err) {
-    console.log(err);
     res.send("Error occur while updating post", 404);
   }
 };
@@ -72,7 +65,6 @@ const deleteMyPost = async (req, res) => {
     await Post.findByIdAndRemove({ _id: id });
     res.send("Post deleted successfully");
   } catch (err) {
-    console.log(err);
     res.send("Error occur while deleting post", 404);
   }
 };
@@ -91,7 +83,7 @@ const likePost = async (req, res) => {
     );
     res.send(liking_post);
   } catch (err) {
-    console.log(err);
+    res.send("Error occur while deleting post", 404);
   }
 };
 
@@ -109,7 +101,7 @@ const dislikePost = async (req, res) => {
     );
     res.send(disliking_post);
   } catch (err) {
-    console.log(err);
+    res.send("Error occur while deleting post", 404);
   }
 };
 
@@ -129,7 +121,7 @@ const commentPost = async (req, res) => {
     );
     res.send(commenting);
   } catch (err) {
-    console.log(err);
+    res.send("Error occur while deleting post", 404);
   }
 };
 

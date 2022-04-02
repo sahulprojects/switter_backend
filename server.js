@@ -6,7 +6,7 @@ const body_parser = require("body-parser");
 const cors = require("cors");
 app.use(cors());
 
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 const SignupRouter = require("./src/signup/signup.route");
 const LoginRouter = require("./src/login/login.router");
 const PostRouter = require("./src/posts/posts.route");
