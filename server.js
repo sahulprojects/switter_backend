@@ -6,6 +6,10 @@ const body_parser = require("body-parser");
 const cors = require("cors");
 app.use(cors());
 
+app.get("/test",(req,res)=>{
+  res.send('This is working fine ')
+})
+
 const port = process.env.PORT || 5000;
 const SignupRouter = require("./src/signup/signup.route");
 const LoginRouter = require("./src/login/login.router");
