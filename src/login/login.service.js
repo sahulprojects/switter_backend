@@ -18,7 +18,7 @@ const authenticateToken = (req, res, next) => {
   if (!authHeader) res.send("authentication failed", 404);
   const token = authHeader.split(" ")[1];
 
-  jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
+  jwt.verify(token,"LKD394dsjflkasjdfNqnadlfAALKJDFCMAIERULAKDFLAIJFANDFAKNFEALJA", (err, user) => {
     if (err) res.send("Invalid user", 404);
     else {
       req.user = user;
