@@ -3,9 +3,13 @@ const User = require("../models/users.models");
 const bcrypt = require("bcrypt");
 
 const generateToken = (username, password) => {
-  return jwt.sign({ username, password }, process.env.SECRET_KEY, {
-    expiresIn: "604800s",
-  });
+  return jwt.sign(
+    { username, password },
+    LKD394dsjflkasjdfNqnadlfAALKJDFCMAIERULAKDFLAIJFANDFAKNFEALJA,
+    {
+      expiresIn: "604800s",
+    }
+  );
 };
 
 const authenticateToken = (req, res, next) => {
