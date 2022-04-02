@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const generateToken = (username, password) => {
   return jwt.sign(
     { username, password },
-    LKD394dsjflkasjdfNqnadlfAALKJDFCMAIERULAKDFLAIJFANDFAKNFEALJA,
+    "LKD394dsjflkasjdfNqnadlfAALKJDFCMAIERULAKDFLAIJFANDFAKNFEALJA",
     {
       expiresIn: "604800s",
     }
