@@ -21,7 +21,7 @@ app.use(body_parser.urlencoded({ extended: false }));
 
 mongoose
   .connect(
-    `mongodb+srv://sahul:CyvL5VL719QVZ1YN@cluster0.alht5.mongodb.net/SwitterDB?retryWrites=true&w=majority`
+    `mongodb+srv://sahul:hcup52NGokxLSD3N@cluster0.alht5.mongodb.net/?retryWrites=true&w=majority`
   )
   .then(() => console.log("Db is connected"))
   .catch((err) => console.log(err, "it has an error"));
